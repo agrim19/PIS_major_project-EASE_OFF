@@ -1,0 +1,28 @@
+#include<SoftwareSerial.h>
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(A0,OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  float value;
+  if(Serial.available()){
+  value=Serial.read();
+  if(abs(value-72)>20)
+    vibration();
+  }
+  delay(1000);
+}
+//Here, we are using the 4-7-8 breathing technique for reduction. Each state corresponds to breathing in, holding and breathing out respectively.
+void vibration(){
+   analogWrite(A0,512);
+   delay(4000);
+   analogWrite(A0,0);
+   delay(7000);
+   analogWrite(A0,512);
+   delay(8000);
+   analogWrite(A0,0);
+   
+}
